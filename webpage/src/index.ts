@@ -43,6 +43,7 @@ function generateLastSeasonData(filter?: string) {
 
 function generateHiddenData(filter?: string) {
   let data: {}[] | [] = [];
+  if (!filter) return data;
   // Last season hidden
   let players = Object.keys(lastSeasonPlayerData);
   if (filter) players = players.filter((p) => !p.toLowerCase().includes(filter.toLowerCase()));
@@ -90,7 +91,6 @@ function scatterChartData(filter?: string) {
     ],
   };
 }
-
 Chart.defaults.global.defaultFontSize = 20;
 
 const scatterChart = new Chart(canvas, {
@@ -144,7 +144,10 @@ const scatterChart = new Chart(canvas, {
     },
   },
 });
-
+function filterScatterData(filter?: string) {
+  scatterChart.data = scatterChartData(filter);
+  scatterChart.update();
+}
 let barChart: Chart = null;
 function renderBarChart(playerName: string) {
   const stats = ['derived_fg', 'derived_ft', 'TRB', 'AST', 'STL', 'BLK', 'TOV', '3P', 'PTS'];
@@ -195,11 +198,13 @@ function renderBarChart(playerName: string) {
 const onClick = (evt: any) => {
   const activeElement:any = scatterChart.getElementAtEvent(evt);
   if (activeElement == null || activeElement.length === 0) {
+    filterScatterData(searchBar.value);
     return;
   }
   barChartCanvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
   let { label: playerName } = scatterChart.data.datasets[activeElement[0]._datasetIndex].data[activeElement[0]._index] as any; //eslint-disable-line
   if (playerName != null) {
+    filterScatterData(playerName);
     renderBarChart(playerName);
   }
 };
@@ -208,9 +213,7 @@ renderBarChart('Stephen Curry');
 scatterChart.options.onClick = onClick;
 
 // Search Bar
-
-function valueChanged(e: InputEvent) {
-  scatterChart.data = scatterChartData(searchBar.value);
-  scatterChart.update();
+function valueChanged() {
+  filterScatterData(searchBar.value);
 }
 searchBar.addEventListener('input', valueChanged);
