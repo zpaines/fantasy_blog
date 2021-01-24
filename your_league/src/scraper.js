@@ -9,7 +9,7 @@ for (let teamTable of teamTables) {
         playerTeams[playerName] = teamName
     }
 }
-let zachSite = 'file:///home/zach/fantasy_blog/your_league/dist/index.html'
+let zachSite = 'https://www.zachsab.in/fantasy_basketball/your_league'
 let linkUrl = `${zachSite}?${new URLSearchParams(playerTeams)}`
 
 let body = document.getElementsByTagName('body')[0]

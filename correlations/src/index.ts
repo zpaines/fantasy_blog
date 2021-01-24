@@ -13,10 +13,6 @@ graphDiv.style.width = '50%';
 gridDiv.style.width = '50%';
 document.getElementById('flex-container').appendChild(graphDiv);
 const correlations = require('./correlations.json') //eslint-disable-line
-const canvas = document.createElement('canvas')
-canvas.height = 100;
-canvas.width = 100;
-graphDiv.appendChild(canvas);
 const rows = Object.keys(correlations);
 const columns = Object.keys(correlations['AST']);
 interface Correlation {
@@ -40,7 +36,7 @@ for (let row=0; row<rows.length; row++) {
 }
 
 const playerStats = require('./player_stats.json') //eslint-disable-line
-const chart = new CorrelationChart(playerStats, canvas);
+const chart = new CorrelationChart(playerStats, graphDiv);
 chart.renderData('FG%', '3P')
 
 const table = new Table<Correlation>(
