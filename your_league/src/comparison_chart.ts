@@ -96,7 +96,7 @@ export class ComparisonChart {
       div.setAttribute('style', 'margin-bottom:20px; text-align: center;')
       parentDiv.appendChild(div)
       let select = document.createElement('select');
-      select.setAttribute('style', 'background-color: white; border: none; height: 3vw; line-height: 3vw;')
+      select.setAttribute('style', "background-color: white; border: none; height: 3vw; line-height: 3vw; font-size: 30px; font-family:'Courier New', Courier, monospace;")
       for (let stat of this.fantasyStats) {
           let option = document.createElement('option')
           option.setAttribute('value', `${stat}`)

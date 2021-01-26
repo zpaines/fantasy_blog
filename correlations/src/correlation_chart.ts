@@ -6,6 +6,7 @@ export class CorrelationChart {
     filter: string | null
     xAxis: string | null
     yAxis: string | null
+    searchBar: HTMLInputElement
     constructor(
         data: Record<string, string | number>[],
         parentDiv: HTMLElement

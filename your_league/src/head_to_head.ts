@@ -27,7 +27,7 @@ export class HeadToHeadChart {
         this.playerData = data;
         this.playerTeams = playerTeams;
         this.teams = Array.from(new Set(Object.keys(playerTeams).map((p) => playerTeams[p])))
-        this.displayedTeams = [this.teams[2], this.teams[7]]
+        this.displayedTeams = [this.teams[0], this.teams[1]]
         this.createSelects(selectContainer);
         this.generateTeamData();
         this.chart = new Chart(ctx, {
@@ -45,7 +45,7 @@ export class HeadToHeadChart {
                         display: false,
                       },
                       ticks: {
-                          display: false
+                          display: true
                       }
                     }],
                   },
@@ -140,13 +140,13 @@ export class HeadToHeadChart {
 
     private createSelect(parentDiv: HTMLElement, color: string, startingValue: string, onSelect: (newTeam: string) => void) {
         let div = document.createElement('div');
-        div.setAttribute('style', 'display: inline-flex; align-items: center; justify-content: center; text-align: center;')
+        div.setAttribute('style', 'display: inline-flex; align-items: center; justify-content: center; text-align: center; padding-left: 30px;')
         parentDiv.appendChild(div);
         let label = document.createElement('div');
         div.appendChild(label);
         label.setAttribute('style', `width: 3vw; height: 3vw; background-color: ${color}; display: inline-block;`);
         let select = document.createElement('select');
-        select.setAttribute('style', 'background-color: white; border: none; height: 3vw; line-height: 3vw;')
+        select.setAttribute('style', "background-color: white; border: none; height: 3vw; line-height: 3vw; font-size: 20px; font-family:'Courier New', Courier, monospace;")
         for (let team of this.teams) {
             let option = document.createElement('option')
             option.setAttribute('value', `${team}`)
